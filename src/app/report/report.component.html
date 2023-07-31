@@ -1,0 +1,35 @@
+<app-filterreport [monthCount]="getMonthCount()"
+(countRadioButtonSelectionChanged)="onReportCountRadioButtonChange($event)"
+></app-filterreport>
+<div style="height:20px;"></div>
+<div>
+  <table style="border: 1px; width: 100%;">
+    <tr style="background-color: aquamarine;">
+      <th>MonthExp</th>
+      <th>MonthNm</th>
+      <th>YearExp</th>
+      <th>TotalExpense</th>
+      <th>Expense</th>
+      <th>Investment</th>
+      <th>PetrolExpense</th>
+      <th>DieselExpense</th>
+      <th>ATMWithdrawal</th>
+      <th>SBI_SB_ATM</th>
+      <th>HDFC_ATM</th>
+    </tr>
+    <tr *ngFor="let report of reportData">
+      <td>{{report.MonthExp}}</td>
+      <td>{{report.MonthNm}}</td>
+      <td>{{report.YearExp}}</td>
+      <td>{{report.TotalExpense}}</td>
+      <td>{{report.Expense}}</td>
+      <td>{{report.Investment}}</td>
+      <td>{{report.PetrolExpense}}</td>
+      <td>{{report.DieselExpense}}</td>
+      <td>{{report.ATMWithdrawal}}</td>
+      <td>{{report.SBI_SB_ATM}}</td>
+      <td>{{report.HDFC_ATM}}</td>
+    </tr>
+  </table>
+
+</div>
