@@ -8,8 +8,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class FilterreportComponent implements OnInit {
 
   selectedRadioButtonValue: string="2024";
-  @Output()
 
+  @Output()
   countRadioButtonSelectionChanged: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() { }

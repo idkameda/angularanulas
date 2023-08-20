@@ -18,7 +18,11 @@
       <th>HDFC_ATM</th>
     </tr>
     <tr *ngFor="let report of reportData">
-      <td>{{report.MonthExp}}</td>
+      <td>
+        <a [routerLink]="['/monthreport', report.MonthExp]">
+        {{report.MonthExp}}
+      </a>
+      </td>
       <td>{{report.MonthNm}}</td>
       <td>{{report.YearExp}}</td>
       <td>{{report.TotalExpense}}</td>
@@ -31,5 +35,5 @@
       <td>{{report.HDFC_ATM}}</td>
     </tr>
   </table>
-
+  
 </div>

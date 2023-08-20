@@ -6,19 +6,32 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ReportComponent } from './report/report.component';
 import { ReportService } from './report/report.service';
-import { FilterreportComponent } from './report/filterreport/filterreport.component'; 
+import { FilterreportComponent } from './report/filterreport/filterreport.component';
+import { ExpenseComponent } from './expense/expense.component';
+import { PageNotFoundComponent } from './others/pageNotFound.component';
+import { RouterModule, Routes } from '@angular/router';
+import { MonthreportComponent } from './report/monthreport/monthreport.component';
+
+const appRoutes: Routes = [
+  { path: 'report', component: ReportComponent },
+  { path: 'monthreport/:MonthExp', component: MonthreportComponent },
+  { path: 'expense', component: ExpenseComponent },
+  { path: '', redirectTo: 'report', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent }
+]
 @NgModule({
   declarations: [
     AppComponent,
     ReportComponent,
-    FilterreportComponent 
+    FilterreportComponent,
+    ExpenseComponent, PageNotFoundComponent, MonthreportComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule, RouterModule.forRoot(appRoutes)
   ],
   providers: [ReportService],
-  bootstrap: [ReportComponent]
+  bootstrap: [AppComponent ]
 })
 export class AppModule { }
