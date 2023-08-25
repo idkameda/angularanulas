@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IReport } from './report';
 import { ReportService } from './report.service';
 import { FormControl, FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 import { AlertService } from '../_alert';
+=======
+import { Component, OnInit } from '@angular/core';
+import { IReport } from './report';
+import { ReportService } from './report.service';
+>>>>>>> 627e71c (25Aug23 commit with month report)
 
 @Component({
   selector: 'app-reports',
@@ -11,6 +17,7 @@ import { AlertService } from '../_alert';
   providers: [ReportService]
 })
 export class ReportsComponent implements OnInit {
+<<<<<<< HEAD
   options = {
     autoClose: true,
     keepAfterRouteChange: false
@@ -95,4 +102,35 @@ export class ReportsComponent implements OnInit {
       this.form.reset();
     }
   }
+=======
+
+  reportData: IReport[]=[];
+  selectedRadioButtonValue: string = "2024";
+  constructor(private _reportService: ReportService) { }
+
+
+  ngOnInit() {
+    let data = JSON.stringify({ 'CrudType': '0', 'YearIndex': this.selectedRadioButtonValue, 'MonthIndex': '2024' })
+    let objOutput;
+    this._reportService.getReport(data)
+      .subscribe(objOutput => this.reportData = objOutput);
+      console.log(objOutput);
+    //this.reportData = objOutput;
+  }
+  getMonthCount(): number {
+    // if (this.reportData != undefined)
+    //   return this.reportData.filter(e => e.Expense > 1000).length;
+    // else
+      return 0;
+  }
+  onReportCountRadioButtonChange(selectedRadioButtonValue: string): void {
+    //this.selectedRadioButtonValue=selectedRadioButtonValue;
+    let data = JSON.stringify({ 'CrudType': '0', 'YearIndex': selectedRadioButtonValue, 'MonthIndex': '2024' })
+    let objOutput;
+    this._reportService.getReport(data)
+      .subscribe(objOutput => this.reportData = objOutput);
+    console.log(objOutput);
+  }
+
+>>>>>>> 627e71c (25Aug23 commit with month report)
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IReport } from '../report';
+<<<<<<< HEAD
 import { FormGroup,ReactiveFormsModule } from '@angular/forms';
+=======
+>>>>>>> 627e71c (25Aug23 commit with month report)
 
 @Component({
   selector: 'app-detailreport',
@@ -12,7 +15,10 @@ export class DetailreportComponent implements OnInit {
   pageTitle = "Product Details";
   report!: IReport;
   router: any;
+<<<<<<< HEAD
   postForm:FormGroup;
+=======
+>>>>>>> 627e71c (25Aug23 commit with month report)
   constructor() { }
 
   ngOnInit(): void {
@@ -21,4 +27,8 @@ export class DetailreportComponent implements OnInit {
   onBack():void{
     this.router.navigate(['/reports']);
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 627e71c (25Aug23 commit with month report)
 }
