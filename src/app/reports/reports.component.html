@@ -1,40 +1,166 @@
-<app-filterreport [monthCount]="getMonthCount()"
-  (countRadioButtonSelectionChanged)="onReportCountRadioButtonChange($event)"></app-filterreport>
-<div style="height:20px;"></div>
-<div>
-  <table style="border: 1px; width: 100%;">
-    <tr style="background-color: rgb(179, 221, 207);">
-      <th>Month</th>
-      <th>Month Nm</th>
-      <th>Year</th>
-      <th>TotalExpense</th>
-      <th>Expense</th>
-      <th>Investment</th>
-      <th>Petrol</th>
-      <th>Diesel</th>
-      <th>ATMWithdrawal</th>
-      <th>SBI ATM</th>
-      <th>HDFC ATM</th>
-    </tr>
-    <tr *ngFor="let report of reportData">
-      <td>
-        <a [routerLink]="['/monthreport', report.MonthExp, report.YearExp]">
-          {{report.MonthExp}}
-        </a>
-      </td>
-      <td>
-        <a [routerLink]="['/monthreport', report.MonthExp, report.YearExp]">{{report.MonthNm}}</a>
-      </td>
-      <td>{{report.YearExp}}</td>
-      <td>{{report.TotalExpense}}</td>
-      <td>{{report.Expense}}</td>
-      <td>{{report.Investment}}</td>
-      <td>{{report.PetrolExpense}}</td>
-      <td>{{report.DieselExpense}}</td>
-      <td>{{report.ATMWithdrawal}}</td>
-      <td>{{report.SBI_SB_ATM}}</td>
-      <td>{{report.HDFC_ATM}}</td>
-    </tr>
-  </table>
 
-</div>
+  <button type="button" (click)="popup = true" class="btn btn-outline-secondary mr-3">
+    Add Entry
+  </button>
+  <div class="overlay" *ngIf="popup">
+    <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+      <div class="popup">
+        <h2>Add new transaction</h2>
+
+        <alert></alert>
+
+        <a class="close" (click)="popup = false">&times;</a>
+        <div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Transaction date</label>
+                <input type="date" class="form-control" name="TranDate" id="TranDate" ngModel required
+                  #trandate="ngModel" />
+                <div>
+                  <small *ngIf="trandate.invalid && trandate.touched">Transaction date is required!</small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="BankDesc">Bank Desc</label>
+                <input class="form-control" fromControlName="BankDesc" name="BankDesc" id="BankDesc" ngModel
+                  #bankdesc="ngModel" placeholder="Bank Description"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="BankDesc2">Bank Desc 2</label>
+                <input class="form-control" fromControlName="BankDesc2" name="BankDesc2" id="BankDesc2" ngModel
+                  #bankdesc2="ngModel" placeholder="Bank Description 2" />
+              </div>
+              <div class="col-md-6">
+                <label for="MyDesc">My Desc</label>
+                <input class="form-control" fromControlName="MyDesc" name="MyDesc" id="MyDesc" ngModel
+                  #mydesc="ngModel" placeholder="My Description" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="AmtDeducted">Amt Deducted</label>
+                <input type="number" class="form-control" name="AmtDeducted" id="AmtDeducted" ngModel required
+                  #amtdeducted="ngModel" placeholder="Amt Deducted" />
+                <div>
+                  <small *ngIf="amtdeducted.invalid && amtdeducted.touched">Amt deducted is required!</small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="PaidUsing">Paid Using</label>
+                <input type="text" class="form-control" name="PaidUsing" id="PaidUsing" ngModel required
+                  #paidusing="ngModel" placeholder="Paid Using" />
+                <div>
+                  <small *ngIf="paidusing.invalid && paidusing.touched">Paid using is required!</small>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div style="height: 30px;"></div>
+                <div class="form-inline">
+                  <label><input type="checkbox" value="sports" name="hobbies" ngModel name="IsInvestment"
+                      class="form-check-input">Investment</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Financial Year</label>
+                <select id="FYYear" name="FYYear" class="form-select" aria-label="Default select example"
+                  [ngModel]="defaultYear">
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                </select>
+              </div>
+            </div>
+            <div class="my-2">
+              <input type="submit" value="Submit" id="btn" [disabled]="!myForm.valid">
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br>
+  <br>
+  <app-filterreport [monthCount]="getMonthCount()"
+    (countRadioButtonSelectionChanged)="onReportCountRadioButtonChange($event)"></app-filterreport>
+
+  <div class="form-group" *ngFor="let report of reportData?.Table1"
+    style="padding-left: 5px;padding-right: 5px;padding-top: 10px;">
+    <table style="width:100%;">
+      <tr>
+        <td style="width:25%">
+          Monthly Average:
+        </td>
+        <td style="width:25%">
+          {{report.Monthly_AVG}}
+        </td>
+        <td style="width:25%">
+          Total Expense
+        </td>
+        <td style="width:25%">
+          {{report.TotalExpense}}
+        </td>
+      </tr>
+      <tr>
+        <td>Petrol</td>
+        <td>{{report.Petrol}}</td>
+        <td>Diesel</td>
+        <td>{{report.Diesel}}</td>
+      </tr>
+      <tr>
+        <td>Investment</td>
+        <td>{{report.Investment}}</td>
+        <td>ATMWithdrawal</td>
+        <td>{{report.ATMWithdrawal}}</td>
+      </tr>
+      <tr>
+        <td>TotalExpense</td>
+        <td>{{report.TotalExpense}}</td>
+        <td>GrandTotal</td>
+        <td>{{report.GrandTotal}}</td>
+      </tr>
+    </table>
+
+  </div>
+  <div style="padding-left: 5px;padding-right: 5px;">
+    <table style="border: 1px; width: 100%;">
+      <tr style="background-color: rgb(179, 221, 207);">
+        <th>Month</th>
+        <th>Month Nm</th>
+        <th>Year</th>
+        <th>TotalExpense</th>
+        <th>Expense</th>
+        <th>Investment</th>
+        <th>Petrol</th>
+        <th>Diesel</th>
+        <th>ATMWithdrawal</th>
+        <th>SBI ATM</th>
+        <th>HDFC ATM</th>
+      </tr>
+      <tr *ngFor="let report of reportData?.Table">
+        <td>
+          <a [routerLink]="['/monthreport', report.MonthExp, report.YearExp]">
+            {{report.MonthExp}}
+          </a>
+        </td>
+        <td>
+          <a [routerLink]="['/monthreport', report.MonthExp, report.YearExp]">{{report.MonthNm}}</a>
+        </td>
+        <td>{{report.YearExp}}</td>
+        <td style="text-align: right;">{{report.TotalExpense}}</td>
+        <td style="text-align: right;">{{report.Expense}}</td>
+        <td style="text-align: right;">{{report.Investment}}</td>
+        <td style="text-align: right;">{{report.PetrolExpense}}</td>
+        <td style="text-align: right;">{{report.DieselExpense}}</td>
+        <td style="text-align: right;">{{report.ATMWithdrawal}}</td>
+        <td>{{report.SBI_SB_ATM}}</td>
+        <td>{{report.HDFC_ATM}}</td>
+      </tr>
+    </table>

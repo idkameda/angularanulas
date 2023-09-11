@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IReport } from '../report';
+import { FormGroup,ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-detailreport',
@@ -11,6 +12,7 @@ export class DetailreportComponent implements OnInit {
   pageTitle = "Product Details";
   report!: IReport;
   router: any;
+  postForm:FormGroup;
   constructor() { }
 
   ngOnInit(): void {
@@ -19,5 +21,4 @@ export class DetailreportComponent implements OnInit {
   onBack():void{
     this.router.navigate(['/reports']);
   }
-
 }

@@ -1,39 +1,32 @@
- 
-<div style="height:20px;"></div>
-<div>
+<div style="height:50px;padding-left: 5px;padding-top: 5px;"> <button class="btn btn-outline-secondary mr-3"
+    style="width: 80px;" (click)="onBack()">
+    <i class="fa fa-chevron-left"></i>Back
+  </button></div>
+<div style="padding-left: 5px;padding-right: 5px;">
   <table style="border: 1px; width: 100%;">
     <tr style="background-color: rgb(179, 221, 207);">
-      <th>Month</th>
-      <th>Month Nm</th>
-      <th>Year</th>
-      <th>TotalExpense</th>
-      <th>Expense</th>
+      <th>Tran Date</th>
+      <th>Bank Desc</th>
+      <th>Bank Desc2</th>
+      <th>MyDesc</th>
+      <th>Amt Deducted</th>
+      <th>Paid Using</th>
       <th>Investment</th>
-      <th>Petrol</th>
-      <th>Diesel</th>
-      <th>ATMWithdrawal</th>
-      <th>SBI ATM</th>
-      <th>HDFC ATM</th>
+      <!-- <th>AddedOn</th> -->
     </tr>
     <tr *ngFor="let report of reportData">
-      <td>
-        <a [routerLink]="['/monthreport', report.MonthExp, report.YearExp]">
-          {{report.MonthExp}}
-        </a>
-      </td>
-      <td>
-        <a [routerLink]="['/monthreport', report.MonthExp, report.YearExp]">{{report.MonthNm}}</a>
-      </td>
-      <td>{{report.YearExp}}</td>
-      <td>{{report.TotalExpense}}</td>
-      <td>{{report.Expense}}</td>
-      <td>{{report.Investment}}</td>
-      <td>{{report.PetrolExpense}}</td>
-      <td>{{report.DieselExpense}}</td>
-      <td>{{report.ATMWithdrawal}}</td>
-      <td>{{report.SBI_SB_ATM}}</td>
-      <td>{{report.HDFC_ATM}}</td>
+      <td>{{report.TranDate}}</td>
+      <td>{{report.BankDesc}}</td>
+      <td>{{report.BankDesc2}}</td>
+      <td>{{report.MyDesc}}</td>
+      <td>{{report.AmtDeducted}}</td>
+      <td>{{report.PaidUsing}}</td>
+      <td>{{report.IsInvestment}}</td>
+      <!-- <td>{{report.AddedOn}}</td> -->
     </tr>
   </table>
 
 </div>
+<div style="height:20px;"> <button class="btn btn-outline-secondary mr-3" style="width: 80px;" (click)="onBack()">
+    <i class="fa fa-chevron-left"></i>Back
+  </button></div>

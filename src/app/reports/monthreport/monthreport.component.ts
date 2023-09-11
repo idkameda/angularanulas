@@ -21,12 +21,13 @@ reportData: IMonthReport[]=[];
     }
 
   ngOnInit() {
+    debugger;
     const param=this.route.snapshot.params['MonthExp'];
     const param2=this.route.snapshot.params['YearExp'];
     this.selectMonth=param;
-    let data = JSON.stringify({ 'CrudType': '0', 'YearIndex': param, 'MonthIndex': param2 })
+    let data = JSON.stringify({ 'CrudType': '0', 'YearIndex': param2, 'MonthIndex': param })
     let objOutput;
-    this._reportService.getReport(data)
+    this._reportService.getMonthReport(data)
       .subscribe(objOutput => this.reportData = objOutput);
   }
 
