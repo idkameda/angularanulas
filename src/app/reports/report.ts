@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9da6257 (11-Sep-23 Working copy committed.)
 // export interface IReport {
 //     MonthExp: number,
 //     MonthNm: string,
@@ -44,9 +47,12 @@ export interface Table1 {
     TotalInvestment: number
 }
 export interface Table {
+<<<<<<< HEAD
 =======
 export interface IReport {
 >>>>>>> 627e71c (25Aug23 commit with month report)
+=======
+>>>>>>> 9da6257 (11-Sep-23 Working copy committed.)
     MonthExp: number,
     MonthNm: string,
     YearExp: number,
@@ -62,6 +68,7 @@ export interface IReport {
     HDFC_ATM: number,
     CANARA_RES_ATM: number
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 export interface IMonthReport {
     TranDate: string,
@@ -91,4 +98,16 @@ export interface IMonthReport {
     HDFC_ATM: number,
     CANARA_RES_ATM: number
 >>>>>>> 627e71c (25Aug23 commit with month report)
+=======
+export interface IMonthReport {
+    TranDate: string,
+    BankDesc: string,
+    BankDesc2: string,
+    MyDesc: string,
+    AmtDeducted: number,
+    PaidUsing: string,
+    IsInvestment: number,
+    AddedOn: string,
+    FYYear: number
+>>>>>>> 9da6257 (11-Sep-23 Working copy committed.)
 }

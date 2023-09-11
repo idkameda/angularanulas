@@ -1,9 +1,13 @@
 import { Injectable } from "@angular/core";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { IReport, IMonthReport } from "./report";
 =======
 import { IReport } from "./report";
 >>>>>>> 627e71c (25Aug23 commit with month report)
+=======
+import { IReport, IMonthReport } from "./report";
+>>>>>>> 9da6257 (11-Sep-23 Working copy committed.)
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, throwError, catchError } from "rxjs"; 
 import { map, tap } from 'rxjs/operators';
@@ -17,10 +21,14 @@ private reportUrl='https://localhost:44316/api/MonthlyReport';
 
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
      getReport(data: any): Observable<any> {
 =======
     getReport(data: any): Observable<IReport[]> {
 >>>>>>> 627e71c (25Aug23 commit with month report)
+=======
+     getReport(data: any): Observable<any> {
+>>>>>>> 9da6257 (11-Sep-23 Working copy committed.)
        // var headers = new Headers();
         //let data=JSON.stringify( {'CrudType': '0', 'YearIndex': '2024', 'MonthIndex':'2024'});
       //  headers.append('Content-Type', 'application/json');
@@ -32,6 +40,7 @@ private reportUrl='https://localhost:44316/api/MonthlyReport';
         // return this._http.post('https://localhost:44316/api/MonthlyReport', data, { headers: headers })
         //     .map((response: Response) => <any[]>response.json());
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         return this._http.post(this.reportUrl, data, options )
         .pipe(tap((data: any) => console.log(JSON.stringify(data))), catchError(this.handleError))
@@ -58,6 +67,27 @@ private reportUrl='https://localhost:44316/api/MonthlyReport';
     }
     getMonthReport(data: any): Observable<IReport[]> {
 >>>>>>> 627e71c (25Aug23 commit with month report)
+=======
+        return this._http.post(this.reportUrl, data, options )
+        .pipe(tap((data: any) => console.log(JSON.stringify(data))), catchError(this.handleError))
+    }
+    async getReportaync(data: any): Promise<any> {
+        debugger
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json'  });
+        let options = { headers: headers };
+         
+             try {
+            let res = this._http
+              .post(this.reportUrl, data, options).toPromise();
+            return res;
+          } catch (error) {
+            console.error(error);
+          }
+     }
+
+    getMonthReport(data: any): Observable<IMonthReport[]> {
+>>>>>>> 9da6257 (11-Sep-23 Working copy committed.)
         // var headers = new Headers();
          //let data=JSON.stringify( {'CrudType': '0', 'YearIndex': '2024', 'MonthIndex':'2024'});
        //  headers.append('Content-Type', 'application/json');
@@ -70,10 +100,14 @@ private reportUrl='https://localhost:44316/api/MonthlyReport';
          //     .map((response: Response) => <any[]>response.json());
  
 <<<<<<< HEAD
+<<<<<<< HEAD
          return this._http.post<IMonthReport[]>('https://localhost:44316/api/MonthlyReportDetails', data, options )
 =======
          return this._http.post<IReport[]>(this.reportUrl, data, options )
 >>>>>>> 627e71c (25Aug23 commit with month report)
+=======
+         return this._http.post<IMonthReport[]>('https://localhost:44316/api/MonthlyReportDetails', data, options )
+>>>>>>> 9da6257 (11-Sep-23 Working copy committed.)
          .pipe(tap((data: any) => console.log(JSON.stringify(data))), catchError(this.handleError))
      }
     private handleError(err: any) {

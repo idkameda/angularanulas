@@ -9,10 +9,14 @@ import { ReportService } from './reports/report.service';
 import {  HttpClientModule } from '@angular/common/http';
 import { FilterreportComponent } from './reports/filterreport/filterreport.component';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 =======
 import { FormsModule } from '@angular/forms';
 >>>>>>> 627e71c (25Aug23 commit with month report)
+=======
+import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
+>>>>>>> 9da6257 (11-Sep-23 Working copy committed.)
 import { MonthreportComponent } from './reports/monthreport/monthreport.component';
 import { PageNotFoundComponent } from './others/page-not-found/page-not-found.component';
 import { DetailreportComponent } from './reports/detailreport/detailreport.component';
@@ -31,12 +35,18 @@ import { DetailreportComponent } from './reports/detailreport/detailreport.compo
     AppRoutingModule,
     HttpClientModule,
 <<<<<<< HEAD
+<<<<<<< HEAD
     FormsModule,
     AlertModule,
     ReactiveFormsModule
 =======
     FormsModule
 >>>>>>> 627e71c (25Aug23 commit with month report)
+=======
+    FormsModule,
+    AlertModule,
+    ReactiveFormsModule
+>>>>>>> 9da6257 (11-Sep-23 Working copy committed.)
   ],
   providers: [],
   bootstrap: [AppComponent]
