@@ -1,0 +1,85 @@
+<form (ngSubmit)="onSubmitPetrol()" #myFormPetrol="ngForm">
+    <div class="popup">
+      <h2>Add {{FuelType}}-{{RecID}}</h2>
+      <alert></alert>
+      <div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Transaction date</label>
+              <input type="date" class="form-control" name="TranDate" id="TranDate" required
+                #trandate="ngModel" [ngModel]="TodaysDate | date:'yyyy-MM-dd'" />
+              <div>
+                <small *ngIf="trandate.invalid && trandate.touched">Transaction date is required!</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="BankDesc">Bank Desc</label>
+              <input class="form-control" fromControlName="BankDesc" name="BankDesc" id="BankDesc" [ngModel]="xBankDesc"
+                #bankdesc="ngModel" placeholder="Bank Description"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="MyDesc">My Desc</label>
+              <input class="form-control" fromControlName="MyDesc" name="MyDesc" id="MyDesc" [ngModel]="xMyDesc"
+                #mydesc="ngModel" placeholder="My Description" />
+            </div>
+            <div class="col-md-6">
+              <label for="MyDesc">Location</label>
+              <input class="form-control" fromControlName="MyLocation" name="MyLocation" id="MyLocation" [ngModel]="xMyLocation"
+                #mylocation="ngModel" placeholder="Location" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="AmtDeducted">Amt Deducted</label>
+              <input type="number" class="form-control" name="AmtDeducted" id="AmtDeducted" [ngModel]="xAmtDeducted" required
+                #amtdeducted="ngModel" placeholder="Amt Deducted" />
+              <div>
+                <small *ngIf="amtdeducted.invalid && amtdeducted.touched">Amt deducted is required!</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="TotalLitre">Total Litre</label>
+              <input type="number" class="form-control" name="TotalLitre" id="TotalLitre" [ngModel]="xTotalLitre" required
+                #totallitre="ngModel" placeholder="Total Litre" />
+              <div>
+                <small *ngIf="totallitre.invalid && totallitre.touched">Total litre is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="PaidUsing">Paid Using</label>
+              <input type="text" class="form-control" name="PaidUsing" id="PaidUsing" [ngModel]="xPaidUsing" required
+                #paidusing="ngModel" placeholder="Paid Using" />
+              <div>
+                <small *ngIf="paidusing.invalid && paidusing.touched">Paid using is required!</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label>Financial Year</label>
+              <select id="FYYear" name="FYYear" class="form-select" aria-label="Default select example"
+                [(ngModel)]='defaultYear'>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="KMDriven">KM Driven</label>
+              <input type="number" class="form-control" name="KMDriven" id="KMDriven" [ngModel]="xKMDriven" required
+                #kmdriven="ngModel" placeholder="KM Driven" />
+            </div>
+          </div>
+          <div class="my-2">
+            <input type="submit" value="Submit" id="btn" [disabled]="!myFormPetrol.valid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>

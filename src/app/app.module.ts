@@ -12,6 +12,12 @@ import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MonthreportComponent } from './reports/monthreport/monthreport.component';
 import { PageNotFoundComponent } from './others/page-not-found/page-not-found.component';
 import { DetailreportComponent } from './reports/detailreport/detailreport.component';
+import { DieselComponent } from './reports/diesel/diesel.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+//import { NgxChartsModule }from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,8 @@ import { DetailreportComponent } from './reports/detailreport/detailreport.compo
     FilterreportComponent,
     MonthreportComponent,
     PageNotFoundComponent,
-    DetailreportComponent
+    DetailreportComponent,
+    DieselComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +35,11 @@ import { DetailreportComponent } from './reports/detailreport/detailreport.compo
     HttpClientModule,
     FormsModule,
     AlertModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

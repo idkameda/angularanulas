@@ -1,4 +1,8 @@
 <span class="radioClass">Financial Year ({{monthCount}}): </span>
+<input name="options" type="radio" value="2025" [(ngModel)]="selectedRadioButtonValue"
+(change)="onRadioButtonSelectionChange()">
+<span class="radioClass"> {{"2025"}} </span>
+
 <input name="options" type="radio" value="2024" [(ngModel)]="selectedRadioButtonValue"
 (change)="onRadioButtonSelectionChange()">
 <span class="radioClass"> {{"2024"}} </span>

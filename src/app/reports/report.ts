@@ -59,6 +59,12 @@ export interface Table {
     CANARA_RES_ATM: number
 }
 export interface IMonthReport {
+    Table: Table[];
+    Table1: Table1[];
+    Table2: Table2[];
+    Table3: Table3[];
+}
+export interface Table {
     TranDate: string,
     BankDesc: string,
     BankDesc2: string,
@@ -67,5 +73,44 @@ export interface IMonthReport {
     PaidUsing: string,
     IsInvestment: number,
     AddedOn: string,
-    FYYear: number
+    FYYear: number,
+    RecId: string
+}
+export interface Table1 {
+    TranDate: string,
+    BankDesc: string,
+    BankDesc2: string,
+    MyDesc: string,
+    AmtDeducted: number,
+    PaidUsing: string,
+    IsInvestment: number,
+    AddedOn: string,
+    FYYear: number,
+    RecId: string
+}
+export interface Table2 {
+    FillingDate: string,
+    BankDesc: string,
+    MyDesc: string,
+    MyLocation: string,
+    TotalPaid: number,
+    PaidUsing: string,
+    TotalLitre: number,
+    PerLitre: number,
+    AddedOn: string,
+    KMDriven: number,
+    RecId: string
+}
+export interface Table3 {
+    FillingDate: string,
+    BankDesc: string,
+    MyDesc: string,
+    MyLocation: string,
+    TotalPaid: number,
+    PaidUsing: string,
+    TotalLitre: number,
+    PerLitre: number,
+    AddedOn: string,
+    KMDriven: number,
+    RecId: string
 }

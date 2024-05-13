@@ -1,32 +1,150 @@
-<div style="height:50px;padding-left: 5px;padding-top: 5px;"> <button class="btn btn-outline-secondary mr-3"
-    style="width: 80px;" (click)="onBack()">
+<div style="height:50px;padding-left: 5px;padding-top: 5px;">
+  <button class="btn btn-outline-secondary mr-3" style="width: 80px;" (click)="onBack()">
     <i class="fa fa-chevron-left"></i>Back
-  </button></div>
-<div style="padding-left: 5px;padding-right: 5px;">
-  <table style="border: 1px; width: 100%;">
-    <tr style="background-color: rgb(179, 221, 207);">
-      <th>Tran Date</th>
-      <th>Bank Desc</th>
-      <th>Bank Desc2</th>
-      <th>MyDesc</th>
-      <th>Amt Deducted</th>
-      <th>Paid Using</th>
-      <th>Investment</th>
-      <!-- <th>AddedOn</th> -->
-    </tr>
-    <tr *ngFor="let report of reportData">
-      <td>{{report.TranDate}}</td>
-      <td>{{report.BankDesc}}</td>
-      <td>{{report.BankDesc2}}</td>
-      <td>{{report.MyDesc}}</td>
-      <td>{{report.AmtDeducted}}</td>
-      <td>{{report.PaidUsing}}</td>
-      <td>{{report.IsInvestment}}</td>
-      <!-- <td>{{report.AddedOn}}</td> -->
-    </tr>
-  </table>
-
+  </button>
 </div>
-<div style="height:20px;"> <button class="btn btn-outline-secondary mr-3" style="width: 80px;" (click)="onBack()">
+
+<div class="overlay" *ngIf="popupPetrol">
+  <div class="popup">
+    <a class="close" (click)="popupPetrol = false;">&times;</a>
+    <app-diesel [FuelType]="FuelType" [RecID]="RecID"></app-diesel>
+  </div>
+</div>
+
+<div class="form-group" style="padding-left: 15px;padding-right: 15px;">
+  <div class="row">
+    <div style="border: 1px; width: 50%;padding-left: 5px;padding-right: 5px;">
+      <table style="border: 1px; width: 100%;">
+        <thead>
+          <tr style="background-color: rgb(179, 221, 207);">
+            <th>Tran Date</th>
+            <th>Bank Desc</th>
+            <!-- <th>Bank Desc2</th> -->
+            <th>MyDesc</th>
+            <th>Amt Deducted</th>
+            <th>Paid Using</th>
+            <!-- <th>Investment</th> -->
+            <!-- <th>AddedOn</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let report of reportData?.Table">
+            <tr>
+              <td>
+                <a href="javascript:void(0)" (click)="popupPetrol = true;getRecID(report.RecId);getFuelType('Transaction');">{{report.TranDate}}</a>
+              </td>
+              <td>{{report.BankDesc}}</td>
+              <!-- <td>{{report.BankDesc2}}</td> -->
+              <td>{{report.MyDesc}}</td>
+              <td>{{report.AmtDeducted}}</td>
+              <td>{{report.PaidUsing}}</td>
+              <!-- <td>{{report.IsInvestment}}</td> -->
+              <!-- <td>{{report.AddedOn}}</td> -->
+            </tr>
+          </ng-container>
+          <tr *ngIf="reportData?.Table?.length==0 || reportData==undefined || reportData==null">
+            <td colspan="5">
+              Loading expenses. Please wait...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="border: 1px; width: 50%;padding-left: 5px;padding-right: 5px;">
+      <table style="border: 1px; width: 100%;">
+        <thead>
+          <tr style="background-color: rgb(179, 221, 207);">
+            <th>Tran Date</th>
+            <th>Bank Desc</th>
+            <th>MyDesc</th>
+            <th>Amt Deducted</th>
+            <th>Paid Using</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let report of reportData?.Table1">
+            <tr>
+              <td>
+                <a href="javascript:void(0)" (click)="popupPetrol = true;getRecID(report.RecId);getFuelType('Investment');">{{report.TranDate}}</a>
+              </td>
+              <td>{{report.BankDesc}}</td>
+              <td>{{report.MyDesc}}</td>
+              <td>{{report.AmtDeducted}}</td>
+              <td>{{report.PaidUsing}}</td>
+            </tr>
+          </ng-container>
+          <tr *ngIf="reportData?.Table1?.length==0 || reportData==undefined || reportData==null">
+            <td colspan="5">
+              Loading investments. Please wait...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <table style="border: 1px; width: 100%;">
+        <thead>
+          <tr style="background-color: rgb(179, 221, 207);">
+            <th>Filling Date</th>
+            <th>Bank Desc</th>
+            <th>My Desc</th>
+            <th>TotalPaid</th>
+            <th>Paid Using</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let report of reportData?.Table2">
+            <tr>
+              <td>
+                <a href="javascript:void(0)" (click)="popupPetrol = true;getRecID(report.RecId);getFuelType('Petrol');">{{report.FillingDate}}</a>
+              </td>
+              <td>{{report.BankDesc}}</td>
+              <td>{{report.MyDesc}}</td>
+              <td>{{report.TotalPaid}}</td>
+              <td>{{report.PaidUsing}}</td>
+            </tr>
+          </ng-container>
+          <tr *ngIf="reportData?.Table2?.length==0 || reportData==undefined || reportData==null">
+            <td colspan="5">
+              Loading petrol details. Please wait...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <table style="border: 1px; width: 100%;">
+        <thead>
+          <tr style="background-color: rgb(179, 221, 207);">
+            <th>Filling Date</th>
+            <th>Bank Desc</th>
+            <th>My Desc</th>
+            <th>TotalPaid</th>
+            <th>Paid Using</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let report of reportData?.Table3">
+            <tr>
+              <td>
+                <a href="javascript:void(0)" (click)="popupPetrol = true;getRecID(report.RecId);getFuelType('Diesel');">{{report.FillingDate}}</a>
+              </td>
+              <td>{{report.BankDesc}}</td>
+              <td>{{report.MyDesc}}</td>
+              <td>{{report.TotalPaid}}</td>
+              <td>{{report.PaidUsing}}</td>
+            </tr>
+          </ng-container>
+          <tr *ngIf="reportData?.Table3?.length==0 || reportData==undefined || reportData==null">
+            <td colspan="5">
+              Loading diesel details. Please wait...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div style="height:50px;padding-left: 5px;padding-top: 5px;">
+  <button class="btn btn-outline-secondary mr-3" style="width: 80px;" (click)="onBack()">
     <i class="fa fa-chevron-left"></i>Back
-  </button></div>
+  </button>
+</div>
