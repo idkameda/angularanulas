@@ -19,6 +19,8 @@ reportData: IMonthReport;
 popupPetrol:boolean=false;
 FuelType: string="";
 RecID:string="";
+sortColumn: string = '';
+sortDirection: 'asc' | 'desc' = 'asc';
 
   constructor(private dialogRef : MatDialog, private route:ActivatedRoute,
     private router:Router,private _reportService: ReportService) { 
@@ -50,6 +52,7 @@ RecID:string="";
     //   .subscribe(objOutput => this.reportData = objOutput);
     let objOutput = await  this._reportService.getMonthReportasync(data);
     this.reportData = objOutput;
+    
 
   }
   onBack():void{
@@ -72,5 +75,29 @@ RecID:string="";
   getRecID(recId:string):string{
     this.RecID=recId;
     return this.RecID;
+  }
+  
+  sortTable(column: string): void {
+    debugger;
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+
+    this.reportData.Table = this.reportData.Table.sort((a, b) => {
+      const isAsc = this.sortDirection === 'asc';
+      switch (column) {
+        case 'amtdeducted':
+          return this.compare(a.AmtDeducted, b.AmtDeducted, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+
+  compare<T>(a: T, b: T, isAsc: boolean): number {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }
