@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { IReport, IMonthReport } from "./report";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { IReport, IMonthReport, IChart } from "./report";
+import { HttpClient, HttpHeaders, HttpParams, ɵHttpInterceptingHandler } from "@angular/common/http";
 import { Observable, throwError, catchError,of } from "rxjs"; 
 import { map, tap } from 'rxjs/operators';
 import { Data } from "@angular/router";
@@ -15,16 +15,10 @@ private reportMonthlyUrl='https://localhost:44316/api/MonthlyReportDetails';
 
     }
      getReport(data: any): Observable<any> {
-       // var headers = new Headers();
-        //let data=JSON.stringify( {'CrudType': '0', 'YearIndex': '2024', 'MonthIndex':'2024'});
-      //  headers.append('Content-Type', 'application/json');
-
+     
         let headers = new HttpHeaders({
             'Content-Type': 'application/json'  });
         let options = { headers: headers };
-
-        // return this._http.post('https://localhost:44316/api/MonthlyReport', data, { headers: headers })
-        //     .map((response: Response) => <any[]>response.json());
 
         return this._http.post(this.reportUrl, data, options )
         .pipe(tap((data: any) => console.log(JSON.stringify(data))), catchError(this.handleError))
@@ -44,16 +38,10 @@ private reportMonthlyUrl='https://localhost:44316/api/MonthlyReportDetails';
      }
 
     getMonthReport(data: any): Observable<any> {
-        // var headers = new Headers();
-         //let data=JSON.stringify( {'CrudType': '0', 'YearIndex': '2024', 'MonthIndex':'2024'});
-       //  headers.append('Content-Type', 'application/json');
- 
+  
          let headers = new HttpHeaders({
              'Content-Type': 'application/json'  });
          let options = { headers: headers };
- 
-         // return this._http.post('https://localhost:44316/api/MonthlyReport', data, { headers: headers })
-         //     .map((response: Response) => <any[]>response.json());
  
          return this._http.post('https://localhost:44316/api/MonthlyReportDetails', data, options )
          .pipe(tap((data: any) => console.log(JSON.stringify(data))), catchError(this.handleError))
@@ -74,16 +62,6 @@ private reportMonthlyUrl='https://localhost:44316/api/MonthlyReportDetails';
       }
       
   getData(data:string){
-    // return this._http.get(this.reportMonthlyUrl + '?SearchText=' + data)
-    //      .pipe(tap((data: any) => console.log(JSON.stringify(data))), catchError(this.handleError))
-      
-    // return this._http.get('https://localhost:44316/api/MonthlyReportDetails', 
-    //   {
-    //     params: new HttpParams()
-    //     .set('SearchText', data)
-    //     }).pipe(
-    //       map((response:any) => response.map(<Data[]>response.json()))
-    //     )
     const params = new HttpParams().set('SearchText', data);
     return this._http.get<any[]>('https://localhost:44316/api/MonthlyReportDetails', { params }).pipe(
       map(response => response.map(item => item['MyDesc']))
@@ -91,10 +69,6 @@ private reportMonthlyUrl='https://localhost:44316/api/MonthlyReportDetails';
 
   }
 
-//   search(term: string): Observable<any[]> {
-//     return this._http.get(this.reportMonthlyUrl + '?SearchText=' + term)
-//          .pipe(tap((data: any) => console.log(JSON.stringify(data))), catchError(this.handleError))
-// }
 search(term: string): Observable<string[]> {
   debugger;
   if (!term.trim()) {
@@ -105,7 +79,16 @@ search(term: string): Observable<string[]> {
     catchError(this.handleError2<string[]>('search', []))
   );
 }
+selectChartData(term: string): Observable<any> {
+  
+  // return this._http.get<any>(`${'https://localhost:44316/api/Chart'}?YearIn=${term}`);
+  return this._http.get<any>('assets/data.json'); // Path to your local JSON file
+}
 
+async selectChartDataasync(term: string): Promise<any> {
+  //return this._http.get<any>('assets/data.json').toPromise();
+  return this._http.get<any>(`${'https://localhost:44316/api/Chart'}?YearIn=${term}`).toPromise();
+}
 private handleError2<T>(operation = 'operation', result?: T) {
   return (error: any): Observable<T> => {
     console.error(error); // Log the error
