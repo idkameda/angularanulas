@@ -3,7 +3,7 @@ import { IReport } from './report';
 import { ReportService } from './report.service';
 import { FormControl, FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 import { AlertService } from '../_alert';
-import { DieselComponent } from './diesel/diesel.component';
+import {Chart} from 'chart.js/auto';
 
 @Component({
   selector: 'app-reports',
@@ -11,7 +11,11 @@ import { DieselComponent } from './diesel/diesel.component';
   styleUrls: ['./reports.component.css'],
   providers: [ReportService]
 })
-export class ReportsComponent implements OnInit {
+export class ReportsComponent implements OnInit {   
+  public chart: any; 
+  private data1:string[] = [];
+  private data2:string[] =[];
+  private data3:string[]=[];
   options = {
     autoClose: true,
     keepAfterRouteChange: false
@@ -28,10 +32,10 @@ export class ReportsComponent implements OnInit {
   popup: boolean = false;
   popupPetrol: boolean = false;
   popupPetrol2:boolean=false;
+
   constructor(private _reportService: ReportService,
     private formBuilder: FormBuilder,
     public alertService: AlertService) {
-
   }
 
   postForm!: FormGroup;
@@ -40,16 +44,62 @@ export class ReportsComponent implements OnInit {
   }
   async ngOnInit(): Promise<void> {
     this.postForm = this.formBuilder.group({
-      //TranDate: new FormControl(null, Validators.required),
       TranDate: ['', Validators.required]
-      // BankDesc: new FormControl(null, Validators.required)
     });
     this.loadGrid();
-    // let data = JSON.stringify({ 'CrudType': '0', 'dtSave': [{ 'YearIndex': this.selectedRadioButtonValue, 'MonthIndex': '2024' }] })
 
-    // let objOutput = await this._reportService.getReportaync(data);
-    // this.reportData = objOutput;
+    await this.getChartData();
+
+    this.createChart();
   }
+
+  async getChartData() {
+    try {
+      const data = await this._reportService.selectChartDataasync(this.defaultYear);
+      debugger
+      var json = JSON.parse(data);
+      this.data1 = json.Table;
+      this.data2 = json.Table1;
+      this.data3 = json.Table2;
+
+      console.log(json);
+      console.log(json.Table);
+      console.log(json.Table1);
+      console.log(json.Table2);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+  createChart(){
+     // this.chart.clear();
+     //this.chart
+     if (this.chart) {    this.chart.destroy();  } 
+     
+    this.chart = new Chart("MyChart", {
+      type: 'bar', //this denotes tha type of chart
+
+      data: {// values on X-Axis
+        labels: this.data1, 
+           datasets: [
+          {
+            label: "Sales",
+            data: this.data2,
+            backgroundColor: '#9999ff'
+          },
+          {
+            label: "Profit",
+            data: this.data3,
+            backgroundColor: '#b3fff0'
+          }  
+        ]
+      },
+      options: {
+        aspectRatio:3,responsive:true
+      }
+      
+    });
+  }
+
   async loadGrid(): Promise<void> {
     let data = JSON.stringify({ 'CrudType': '0', 'dtSave': [{ 'YearIndex': this.selectedRadioButtonValue, 'MonthIndex': '2024' }] })
 
@@ -68,6 +118,7 @@ export class ReportsComponent implements OnInit {
   getFuelType():string{
     return this.FuelType;
   }
+ 
   async onReportCountRadioButtonChange(selectedRadioButtonValue: string): Promise<void> {
     this.selectedRadioButtonValue = selectedRadioButtonValue;
     //let data = JSON.stringify({ 'CrudType': '0', 'YearIndex': selectedRadioButtonValue, 'MonthIndex': '1' })
@@ -75,9 +126,11 @@ export class ReportsComponent implements OnInit {
     // let objOutput;
     // this._reportService.getReport(data)
     //   .subscribe(objOutput => this.reportData = objOutput);
-
+  this.defaultYear = this.selectedRadioButtonValue;
     let objOutput = await this._reportService.getReportaync(data);
     this.reportData = objOutput;
+    await this.getChartData();
+    this.createChart();
   }
   @ViewChild('myForm') public form: NgForm;
   async onSubmit() {
