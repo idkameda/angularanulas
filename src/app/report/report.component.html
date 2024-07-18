@@ -1,39 +1,110 @@
-<app-filterreport [monthCount]="getMonthCount()"
-(countRadioButtonSelectionChanged)="onReportCountRadioButtonChange($event)"
-></app-filterreport>
-<div style="height:20px;"></div>
-<div>
-  <table style="border: 1px; width: 100%;">
-    <tr style="background-color: aquamarine;">
-      <th>Month Exp</th>
-      <th>Month Nm</th>
-      <th>YearExp</th>
-      <th>TotalExpense</th>
-      <th>Expense</th>
-      <th>Investment</th>
-      <th>PetrolExpense</th>
-      <th>DieselExpense</th>
-      <th>ATMWithdrawal</th>
-      <th>SBI_SB_ATM</th>
-      <th>HDFC_ATM</th>
-    </tr>
-    <tr *ngFor="let report of reportData">
-      <td>
-        <a [routerLink]="['/monthreport', report.MonthExp]">
-        {{report.MonthExp}}
-      </a>
-      </td>
-      <td>{{report.MonthNm}}</td>
-      <td>{{report.YearExp}}</td>
-      <td>{{report.TotalExpense}}</td>
-      <td>{{report.Expense}}</td>
-      <td>{{report.Investment}}</td>
-      <td>{{report.PetrolExpense}}</td>
-      <td>{{report.DieselExpense}}</td>
-      <td>{{report.ATMWithdrawal}}</td>
-      <td>{{report.SBI_SB_ATM}}</td>
-      <td>{{report.HDFC_ATM}}</td>
-    </tr>
-  </table>
-  
+
+<br>
+
+<div class="row">
+  <div class="col-md-6">
+  <button type="button" (click)="popup = true" class="btn btn-outline-secondary mr-3">
+    Add Expense
+  </button>
+  <button type="button" (click)="popupPetrol = true; FuelType='Petrol';" class="btn btn-outline-secondary mr-3">
+    Petrol
+  </button>
+  <button type="button" (click)="popupPetrol = true; FuelType='Diesel';" class="btn btn-outline-secondary mr-3">
+    Diesel
+  </button>
+  <div class="overlay" *ngIf="popup">
+      <div class="popup">
+        <a class="close" (click)="popup = false;loadGrid();">&times;</a>
+        <app-detailreport></app-detailreport>
+      </div>
+  </div>
+  <div class="overlay" *ngIf="popupPetrol">
+      <div class="popup">
+        <a class="close" (click)="popupPetrol = false;loadGrid();">&times;</a>
+    <app-diesel [FuelType]="getFuelType()"></app-diesel>
+      </div>
+  </div>
+  <br>
+  <br>
+  <app-filterreport [monthCount]="getMonthCount()"
+    (countRadioButtonSelectionChanged)="onReportCountRadioButtonChange($event)"></app-filterreport>
+
+  <div class="form-group" *ngFor="let report of reportData?.Table1"
+    style="padding-left: 5px;padding-right: 5px;padding-top: 10px;">
+   
+    <table style="width:95%;">
+      <tr>
+        <td style="width:25%">
+          Monthly Average:
+        </td>
+        <td style="width:25%">
+          {{report.Monthly_AVG}}
+        </td>
+        <td style="width:25%">
+          Total Expense
+        </td>
+        <td style="width:25%">
+          {{report.TotalExpense}}
+        </td>
+      </tr>
+      <tr>
+        <td>Petrol</td>
+        <td>{{report.Petrol}}</td>
+        <td>Diesel</td>
+        <td>{{report.Diesel}}</td>
+      </tr>
+      <tr>
+        <td>Investment</td>
+        <td>{{report.Investment}}</td>
+        <td>ATMWithdrawal</td>
+        <td>{{report.ATMWithdrawal}}</td>
+      </tr>
+      <tr>
+        <td>TotalExpense</td>
+        <td>{{report.TotalExpense}}</td>
+        <td>GrandTotal</td>
+        <td>{{report.GrandTotal}}</td>
+      </tr>
+    </table>
+  </div>
 </div>
+  <div class="col-md-6"><div class="chart-container" style="width: 100%;height: 250px;">
+    <canvas  id="MyChart" >{{ chart }}</canvas>
+  </div></div>
+</div>
+  <div style="padding-left: 5px;padding-right: 5px;">
+    <table style="border: 1px; width: 100%;">
+      <tr style="background-color: rgb(179, 221, 207);">
+        <th>Month</th>
+        <th>Month Nm</th>
+        <th>Year</th>
+        <th>TotalExpense</th>
+        <th>Expense</th>
+        <th>Investment</th>
+        <th>Petrol</th>
+        <th>Diesel</th>
+        <th>ATMWithdrawal</th>
+        <th>SBI ATM</th>
+        <th>HDFC ATM</th>
+      </tr>
+      <tr *ngFor="let report of reportData?.Table">
+        <td>
+          <a [routerLink]="['/monthreport', report.MonthExp, report.YearExp]">
+            {{report.MonthExp}}
+          </a>
+        </td>
+        <td>
+          <a [routerLink]="['/monthreport', report.MonthExp, report.YearExp]">{{report.MonthNm}}</a>
+        </td>
+        <td>{{report.YearExp}}</td>
+        <td style="text-align: right;">{{report.TotalExpense | number : '.2-2'}}</td>
+        <td style="text-align: right;">{{report.Expense | number : '.2-2'}}</td>
+        <td style="text-align: right;">{{report.Investment | number : '.2-2'}}</td>
+        <td style="text-align: right;">{{report.PetrolExpense | number : '.2-2'}}</td>
+        <td style="text-align: right;">{{report.DieselExpense | number : '.2-2'}}</td>
+        <td style="text-align: right;">{{report.ATMWithdrawal}}</td>
+        <td>{{report.SBI_SB_ATM}}</td>
+        <td>{{report.HDFC_ATM}}</td>
+      </tr>
+    </table>
+  </div>
